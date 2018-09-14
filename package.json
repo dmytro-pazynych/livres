@@ -1,0 +1,19 @@
+{
+  "name": "search",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "firebase": "^5.4.2",
+    "growl": "^1.10.5",
+    "puppeteer": "^1.7.0",
+    "readline-sync": "^1.4.9",
+    "select": "^1.1.2",
+    "shell": "^0.5.0"
+  }
+}
