@@ -5,7 +5,7 @@ var growl = require('growl');
 var counting = 1;
 var popup_count = 0;
 
-async function livres(email, pass, hideBrowser) {
+async function livres(email, pass, hideBrowser, pricePerPage) {
 
 	  const browser = await puppeteer.launch({headless: hideBrowser});
 	  const page = await browser.newPage();
@@ -23,7 +23,7 @@ async function livres(email, pass, hideBrowser) {
 	  const pass_selector = '#root > div > div.App__form-container > div > form > div:nth-child(2) > input';
 	  const log_button_selector = '#root > div > div.App__form-container > div > form > div:nth-child(3) > button';
 
-	  await page.waitFor(5000);
+	  await page.waitFor(log_button_selector);
 
 	  await page.click(login_selector);
 	  await page.keyboard.type(email);
@@ -32,21 +32,41 @@ async function livres(email, pass, hideBrowser) {
 	  await page.keyboard.type(pass);
 
 	  await page.click(log_button_selector);
+	  const loginError = '#root > div > div.App__form-container > div > p.mess.mess--error';
+	  try {
+	  await page.waitFor(1000);
+	  let loginErrorText = await page.evaluate((sel) => {
+		    str = document.querySelector(sel).innerHTML;
+	  return str;}, loginError);
+	  if (loginErrorText == "Login or password is wrong") {
+	  	console.log('\x1b[31m%s\x1b[0m', 'Wrong login or pass');
+	  	growl('Wrong login or pass', { title: 'ERROR', name: 'Liv Res', image: 'C:/Users/User/search/livres1.png', sticky: true});
+	  	await page.close();
+	  	await start();
+	  	return 'Error'
+	  }
+	 } catch (err) {
+	 	console.log('\x1b[32m%s\x1b[0m', 'Success');
 
-	  await page.waitForNavigation();
+	 } 
+
+	  await page.waitFor('#app > div:nth-child(1) > nav > div > ul > li:nth-child(1) > a');
+
 
 	  console.log('\x1b[35m%s\x1b[0m','===============================================================================');
 	  console.log("User " + '\x1b[32m%s\x1b[0m', email);
 	  console.log('Loading...');
 	  console.log('\x1b[35m%s\x1b[0m','===============================================================================');
 
+		
+
     async function reload_livres() {
 
 		  const reserve_button = '#app > div:nth-child(2) > div > div.order-tab > div.order-tab-container > section > div:nth-child(2) > div.order-tab-actions.row.vertical.space-between > div.col-4.ta-right > button.btn.btn-light.btn-md';
 
-		  await page.waitFor(5000);
-
 		  var orders = '#app > div:nth-child(2) > div > div > div.sticky-table > div.sticky-table-body';
+
+		  await page.waitFor(5000);
 
 		  let orders_num = await page.evaluate((sel) => {
 		        return document.querySelector(sel).childElementCount;
@@ -64,7 +84,7 @@ async function livres(email, pass, hideBrowser) {
 
 		if (oops.slice(12, 27) == 'page-not-result'){
 			console.log('\x1b[35m%s\x1b[0m','===============================================================================');
-			console.log('\x1b[33m%s\x1b[0m', 'ATTEMPT: ' + counting + '. NO ORDERS, reloading will start in a minutes');
+			console.log('\x1b[33m%s\x1b[0m', 'ATTEMPT: ' + counting + '. NO ORDERS, reloading will start in a minute');
 			console.log('\x1b[35m%s\x1b[0m','===============================================================================');
 			counting = counting + 1;
 			await page.waitFor(60*1000);
@@ -84,7 +104,7 @@ async function livres(email, pass, hideBrowser) {
 				    let price_iterator = price_index.replace("INDEX", i);
 				    let estimation_iterator = estimation_index.replace("INDEX", i);
 
-
+/*
 				    if (popup_count == 1 && i == 1) {
 				    	if (hideBrowser == false){
 					    	console.log('\x1b[33m%s\x1b[0m', 'Getting rid of the pop up notifications');
@@ -95,7 +115,7 @@ async function livres(email, pass, hideBrowser) {
 						await page.click(subject_iterator);
 						await page.waitFor(10000);
 				    };
-
+*/
 				    let id = await page.evaluate((sel) => {
 				        str = document.querySelector(sel).innerHTML;
 				        var regex = /\>(.*?)\</g;
@@ -118,17 +138,9 @@ async function livres(email, pass, hideBrowser) {
 				        str = document.querySelector(sel).innerHTML;
 				        var temp;
 				      if (str.slice(0,2) == '<a') {
-				      	/*
-				      	// complex orders; words and minutes
-				      	//var w2 = /\>(.*?)\w/; // error
-				      	//w1 = w2.exec(str)[1]
-						var w1 = str.split('>')[1].split('w')[0];
-				      	var m2 = /\/(.*?)\m/;
-				      	m1 = m2.exec(str)[1];
-				      	w = w1 / 300;
-				      	m = m1 / 60;
-						return w + m;
-				      	*/
+				      	//complex orders
+
+
 				      	return 'Complex';
 				      } else if (str.length > 15) {
 				        	var regex = /\>(.*?)\</;
@@ -178,7 +190,7 @@ async function livres(email, pass, hideBrowser) {
 
 				    }, estimation_iterator);
 
-				    if ((price / estimation) >= 8) {
+				    if ((price / estimation) >= pricePerPage) {
 				    	console.log('\x1b[32m%s\x1b[0m', '#' + i);
 					    console.log('\x1b[32m%s\x1b[0m', id);
 					    console.log('\x1b[32m%s\x1b[0m', subject);
@@ -187,32 +199,6 @@ async function livres(email, pass, hideBrowser) {
 					    console.log('\x1b[32m%s\x1b[0m', 'Price per page ($): ' + price / estimation);
 					    console.log('\x1b[33m%s\x1b[0m', '_______________________________________________________________________________');
 					    growl(id + ' | ' + subject + ' | $' + price, { title: 'Check the order', name: 'Liv Res', image: 'C:/Users/User/search/livres1.png'});
-					} else if (subject.toLowerCase() == 'maths' || subject.toLowerCase() == 'math' || subject.toLowerCase() == 'mathematics' || subject.toLowerCase() == 'statistics') {
-
-							try {
-									console.log('\x1b[31m%s\x1b[0m', '#' + i);
-								    console.log('\x1b[31m%s\x1b[0m', id);
-								    console.log('\x1b[31m%s\x1b[0m', subject);
-								    console.log('\x1b[31m%s\x1b[0m', 'Price ($): ' + price);
-								    console.log('\x1b[31m%s\x1b[0m', 'Size (pages): ' + estimation);1
-								    console.log('\x1b[31m%s\x1b[0m', 'Price per page ($): ' + price / estimation);
-								    reservedOrders(id, subject, price);
-								    await page.click(subject_iterator);
-									await page.waitFor(5000);
-									await page.click(reserve_button);
-									console.log('\x1b[31m%s\x1b[0m', 'Reserving...');
-									console.log('\x1b[33m%s\x1b[0m', '_______________________________________________________________________________');
-									await page.waitFor(3000);
-									await page.click(subject_iterator);
-									await page.waitFor(5000);
-								    growl(id + ' | ' + subject + ' | $' + price, { title: '!The order is RESERVED!', name: 'Liv Res', image: 'C:/Users/User/search/livres1.png', sticky: true});
-								} catch (err) {
-									//growl(id + ' | ' + subject + ' | $' + price, { title: '!The order is RESERVED!', name: 'Liv Res', image: 'C:/Users/User/search/livres1.png'});
-									console.log('\x1b[31m%s\x1b[0m', 'Reserved');
-									console.log('\x1b[33m%s\x1b[0m', '_______________________________________________________________________________');
-									await page.click(subject_iterator);
-								}
-
 					} else {
 
 					    console.log('#' + i);
@@ -243,7 +229,24 @@ async function livres(email, pass, hideBrowser) {
 				await reload_livres();
 };
 
-let newEmail = readline.question("Email: ");
-let newPass = readline.question("Pass: ");
-let hideBrowser = true;
-livres(newEmail, newPass, hideBrowser);
+function start (){
+	console.log('\x1b[35m%s\x1b[0m','===============================================================================');
+	var newEmail = readline.question("Email: ");
+	while ( newEmail == '') {
+		console.log('\x1b[31m%s\x1b[0m', 'Enter your Email')
+		newEmail = readline.question("Email: ");
+	}
+	var newPass = readline.question("Pass: ", {hideEchoBack: true, mask: '$'});
+	while (newPass == '') {
+		console.log('\x1b[31m%s\x1b[0m', 'Enter your password')
+		newPass = readline.question("Pass: ", {hideEchoBack: true});
+	}
+	hideBrowser = true;
+	let pricePerPage = readline.question("Min price per page: ");
+	console.log('\x1b[35m%s\x1b[0m','===============================================================================');
+
+	livres(newEmail, newPass, hideBrowser, pricePerPage = 8);
+};
+
+start ();
+
