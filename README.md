@@ -18,3 +18,4 @@ Scraping of the Livingston website
   
   <li> Install the required modules (puppeteer, readline-sync, growl, firebase)</li>
   <li> Run livres.js</li>
+</ol>
