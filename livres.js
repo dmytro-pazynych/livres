@@ -1,6 +1,27 @@
+var firebase = require("firebase");
 var puppeteer = require('puppeteer');
 var readline = require('readline-sync');
 var growl = require('growl');
+
+var config = {
+    apiKey: "AIzaSyAaDDdsaLfT3JLV7274VmOI7zqPPKGQan4",
+    authDomain: "livres-85f82.firebaseapp.com",
+    databaseURL: "https://livres-85f82.firebaseio.com",
+    projectId: "livres-85f82",
+    storageBucket: "livres-85f82.appspot.com",
+    messagingSenderId: "535459743463"
+};
+firebase.initializeApp(config);
+
+var database = firebase.database();
+
+function writeOrderData(email1, id1, subj1, price1) {
+  firebase.database().ref(email1.replace("@", '+').replace(".", '+') + '/' + id1).set({
+    orderSubject: subj1,
+    orderPrice: price1
+  });
+};
+
 
 var counting = 1;
 var popup_count = 0;
@@ -198,6 +219,7 @@ async function livres(email, pass, hideBrowser, pricePerPage) {
 					    console.log('\x1b[32m%s\x1b[0m', 'Size (pages): ' + estimation);
 					    console.log('\x1b[32m%s\x1b[0m', 'Price per page ($): ' + price / estimation);
 					    console.log('\x1b[33m%s\x1b[0m', '_______________________________________________________________________________');
+					    writeOrderData(email, id, subject, price);
 					    growl(id + ' | ' + subject + ' | $' + price, { title: 'Check the order', name: 'Liv Res', image: 'C:/Users/User/search/livres1.png'});
 					} else {
 
@@ -207,6 +229,7 @@ async function livres(email, pass, hideBrowser, pricePerPage) {
 					    console.log('Price ($): ' + price);
 					    console.log('Size (pages): ' + estimation);
 					    console.log('Price per page ($): ' + price / estimation);
+					    writeOrderData(email, id, subject, price);
 					    console.log('\x1b[33m%s\x1b[0m', '_______________________________________________________________________________');
 				};
 				      
