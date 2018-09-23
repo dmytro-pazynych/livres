@@ -1,6 +1,7 @@
 # livres
 Scraping of the <a href = "https://myaccount.lrwriters.com">Livingston website</a><br>
 The program monitors the website and notifies about orders with a given price.<br>
+In other words, this program saves you from constantly reloading the website and searching for good orders.<br>
 <img src="https://raw.githubusercontent.com/dmytro-pazynych/livres/master/pics/console.png" alt="console"><br>
 <img src="https://raw.githubusercontent.com/dmytro-pazynych/livres/master/pics/notification.png" alt="notification"><br>
 <h2>How to install</h2>
