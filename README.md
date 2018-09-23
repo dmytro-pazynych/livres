@@ -26,10 +26,10 @@ In other words, this program saves you from constantly reloading the website and
     Install the required modules (puppeteer, readline-sync, growl, firebase):<br>
     A package can be downloaded with the command <b>npm "module name" install --save</b><br>
     <img src="https://raw.githubusercontent.com/dmytro-pazynych/livres/master/pics/mod.png" alt="npm"><br>
-    1. <b>npm install puppeteer --save</b>
-    2. <b>npm install readline-sync --save</b>
-    3. <b>npm install growl --save</b>
-    4. <b>npm install firebase --save</b>
+    1. <b>npm install puppeteer --save</b><br>
+    2. <b>npm install readline-sync --save</b><br>
+    3. <b>npm install growl --save</b><br>
+    4. <b>npm install firebase --save</b><br>
   </li>
   <li> 
     Run livres.js<br>
