@@ -3,7 +3,7 @@ Scraping of the <a href = "https://myaccount.lrwriters.com">Livingston website</
 <ol>
   <li> <a href = "https://nodejs.org/en/download/">Install Node JS</a></li>
   <li> <a href = "http://www.growlforwindows.com/gfw/d.ashx?f=GrowlInstaller.exe">Install Growl</a></li>
-  <li> Download all files and save them in one folder</li>
+  <li> <a href = "https://github.com/dmytro-pazynych/livres/archive/master.zip">Download all files and save them in one folder</a></li>
   <li> Open Windows Command Prompt:<br>
     Inside the search field from your taskbar, enter command or cmd. Then, click or tap on the Command Prompt result.<br>
     <img src="https://www.digitalcitizen.life/sites/default/files/gdrive/win_start_cmd/cmd_1.png" alt="cmd"><br>
