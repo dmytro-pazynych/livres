@@ -10,6 +10,10 @@ Scraping of the Livingston website
     Inside the search field from your taskbar, enter command or cmd. Then, click or tap on the Command Prompt result.
   <img src="https://www.digitalcitizen.life/sites/default/files/gdrive/win_start_cmd/cmd_1.png" alt="cmd">
   </li>
+  <li>
+    Replace the working directory with the directory of the folder, where the files are located.<br>
+    1. Type in <b>cd</b> followed by a space. 2. Type in your folder directory path. 3. Press Enter.
+  </li>
   
 4) Install the required modules (puppeteer, readline-sync, growl, firebase)
 5) Run livres.js
