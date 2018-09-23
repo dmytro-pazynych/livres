@@ -1,19 +1,20 @@
 # livres
 Scraping of the Livingston website
-
-1) <a href = "https://nodejs.org/en/download/">Install Node JS</a>
-2) <a href = "http://www.growlforwindows.com/gfw/d.ashx?f=GrowlInstaller.exe">Install Growl</a>
-3) Download all files and save them in one folder
-4) Open Windows Command Prompt
-<un>
-  <li>
-    Inside the search field from your taskbar, enter command or cmd. Then, click or tap on the Command Prompt result.
-  <img src="https://www.digitalcitizen.life/sites/default/files/gdrive/win_start_cmd/cmd_1.png" alt="cmd">
-  </li>
-  <li>
-    Replace the working directory with the directory of the folder, where the files are located.<br>
-    1. Type in <b>cd</b> followed by a space. 2. Type in your folder directory path. 3. Press Enter.
-  </li>
+<ol>
+  <li> <a href = "https://nodejs.org/en/download/">Install Node JS</a></li>
+  <li> <a href = "http://www.growlforwindows.com/gfw/d.ashx?f=GrowlInstaller.exe">Install Growl</a></li>
+  <li> Download all files and save them in one folder</li>
+  <li>Open Windows Command Prompt</li>
+    <un>
+      <li>
+        Inside the search field from your taskbar, enter command or cmd. Then, click or tap on the Command Prompt result.
+        <img src="https://www.digitalcitizen.life/sites/default/files/gdrive/win_start_cmd/cmd_1.png" alt="cmd">
+      </li>
+      <li>
+        Replace the working directory with the directory of the folder, where the files are located.<br>
+        1. Type in <b>cd</b> followed by a space. 2. Type in your folder directory path. 3. Press Enter.
+      </li>
+   </un>
   
-4) Install the required modules (puppeteer, readline-sync, growl, firebase)
-5) Run livres.js
+  <li> Install the required modules (puppeteer, readline-sync, growl, firebase)</li>
+  <li> Run livres.js</li>
