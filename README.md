@@ -31,4 +31,5 @@ Scraping of the Livingston website
     1. Run the command <b>node livres.js</b><br>
     <img src="https://raw.githubusercontent.com/dmytro-pazynych/livres/master/pics/livres.png" alt="run"><br>
   </li>
+  <li>Use your login and password to run the programm</li>
 </ol>
