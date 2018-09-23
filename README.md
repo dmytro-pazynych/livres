@@ -17,6 +17,9 @@ Scraping of the Livingston website
  
   
   
-  <li> Install the required modules (puppeteer, readline-sync, growl, firebase)</li>
+  <li> 
+  Install the required modules (puppeteer, readline-sync, growl, firebase):<br>
+  1. A package can be downloaded with the command <b>npm <module name> install --save</b><br>
+  </li>
   <li> Run livres.js</li>
 </ol>
