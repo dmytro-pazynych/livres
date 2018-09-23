@@ -9,7 +9,7 @@ In other words, this program saves you from constantly reloading the website and
 <ol>
   <li> <a href = "https://nodejs.org/en/download/">Install Node JS</a></li>
   <li> <a href = "http://www.growlforwindows.com/gfw/d.ashx?f=GrowlInstaller.exe">Install Growl</a></li>
-  <li> <a href = "https://github.com/dmytro-pazynych/livres/archive/master.zip">Download all files and save them in one folder</a></li>
+  <li> <a href = "https://github.com/dmytro-pazynych/livres/archive/master.zip">Download</a> all files and save them in one folder</li>
   <li> Open Windows Command Prompt:<br>
     Inside the search field from your taskbar, enter command or cmd. Then, click or tap on the Command Prompt result.<br>
     <img src="https://www.digitalcitizen.life/sites/default/files/gdrive/win_start_cmd/cmd_1.png" alt="cmd"><br>
