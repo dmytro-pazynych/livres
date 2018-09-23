@@ -1,8 +1,8 @@
 # livres
 Scraping of the <a href = "https://myaccount.lrwriters.com">Livingston website</a><br>
 The program monitors the website and notifies about orders with a given price.<br>
-<img src="https://www.digitalcitizen.life/sites/default/files/gdrive/win_start_cmd/console.png" alt="cmd"><br>
-<img src="https://www.digitalcitizen.life/sites/default/files/gdrive/win_start_cmd/notification.png" alt="cmd"><br>
+<img src="https://raw.githubusercontent.com/dmytro-pazynych/livres/master/pics/console.png" alt="console"><br>
+<img src="https://raw.githubusercontent.com/dmytro-pazynych/livres/master/pics/notification.png" alt="notification"><br>
 <h2>How to install</h2>
 <ol>
   <li> <a href = "https://nodejs.org/en/download/">Install Node JS</a></li>
