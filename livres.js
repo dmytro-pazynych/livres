@@ -22,7 +22,6 @@ function writeOrderData(email1, id1, subj1, price1) {
   });
 };
 
-
 var counting = 1;
 var popup_count = 0;
 
@@ -159,10 +158,61 @@ async function livres(email, pass, hideBrowser, pricePerPage) {
 				        str = document.querySelector(sel).innerHTML;
 				        var temp;
 				      if (str.slice(0,2) == '<a') {
-				      	//complex orders
+				      	//complex orders    	
+								var w1b = str.split('>')[1].split('w')[0];
+								var w1e = str.split(' /')[1].split('w')[0];
+								if (isNaN(w1b))	{
+									w1b = 0
+								} else {
+									w1b = parseInt(w1b)
+								};
+								if (isNaN(w1e)) {
+									w1e = 0
+								} else {
+									w1e = parseInt(w1e)
+								};
 
+								var m1b = str.split('>')[1].split('m')[0];
+								var m1e = str.split(' /')[1].split('m')[0];
+								if (isNaN(m1b))	{
+									m1b = 0
+								} else {
+									m1b = parseInt(m1b)
+								}
+								if (isNaN(m1e)) {
+									m1e = 0
+								} else {
+									m1e = parseInt(m1e)
+								}
 
-				      	return 'Complex';
+								var p1b = str.split('>')[1].split('p')[0];
+								var p1e = str.split(' /')[1].split('p')[0];
+								if (isNaN(p1b))	{
+									p1b = 0
+								} else {
+									p1b = parseInt(p1b)
+								}
+								if (isNaN(p1e)) {
+									p1e = 0
+								} else {
+									p1e = parseInt(p1e)
+								}
+
+								var s1b = str.split('>')[1].split('s')[0];
+								var s1e = str.split(' /')[1].split('s')[0];
+								if (isNaN(s1b))	{
+									s1b = 0
+								} else {
+									s1b = parseInt(s1b)
+								}
+								if (isNaN(s1e)) {
+									s1e = 0
+								} else {
+									s1e = parseInt(s1e)
+								}
+
+								return (w1b + w1e)/300 + (m1b + m1e)/60 + (p1b + p1e) + (s1b + s1e)/2
+								//return 'Complex';
 				      } else if (str.length > 15) {
 				        	var regex = /\>(.*?)\</;
 				        	temp = regex.exec(str)[1];      
@@ -221,6 +271,7 @@ async function livres(email, pass, hideBrowser, pricePerPage) {
 					    console.log('\x1b[33m%s\x1b[0m', '_______________________________________________________________________________');
 					    writeOrderData(email, id, subject, price);
 					    growl(id + ' | ' + subject + ' | $' + price, { title: 'Check the order', name: 'Liv Res', image: 'C:/Users/User/search/livres1.png'});
+
 					} else {
 
 					    console.log('#' + i);
@@ -253,6 +304,7 @@ async function livres(email, pass, hideBrowser, pricePerPage) {
 };
 
 function start (){
+
 	console.log('\x1b[35m%s\x1b[0m','===============================================================================');
 	var newEmail = readline.question("Email: ");
 	while ( newEmail == '') {
@@ -265,12 +317,14 @@ function start (){
 		newPass = readline.question("Pass: ", {hideEchoBack: true});
 	}
 	hideBrowser = true;
-	let pricePerPage = readline.question("Min price per page: ");
+	var pricePerPage = readline.question("Min price per page: ");
+	while (pricePerPage == '') {
+		console.log('\x1b[31m%s\x1b[0m', 'Enter min price per page')
+		pricePerPage = readline.question("Min price per page: ");
+	}
 	console.log('\x1b[35m%s\x1b[0m','===============================================================================');
 
-	livres(newEmail, newPass, hideBrowser, pricePerPage = 8);
+	livres(newEmail, newPass, hideBrowser, pricePerPage);
 };
 
 start ();
-
-//
